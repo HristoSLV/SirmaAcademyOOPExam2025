@@ -3,9 +3,9 @@ package model;
 import java.time.LocalDate;
 
 public class Rental {
-    private Car car;
-    private Customer customer;
-    private LocalDate rentDate;
+    private final Car car;
+    private final Customer customer;
+    private final LocalDate rentDate;
     private LocalDate returnDate;
 
     public Rental(Car car, Customer customer, LocalDate rentDate) {
