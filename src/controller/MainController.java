@@ -109,6 +109,8 @@ public class MainController {
     }
 
     private void editCar() {
+        listAvailableCars();
+
         try {
             System.out.print("Enter car id to edit: ");
             int id = Integer.parseInt(scanner.nextLine().trim());
@@ -143,6 +145,8 @@ public class MainController {
     }
 
     private void rentCar() {
+        listAvailableCars();
+
         try {
             System.out.print("Enter car id to rent: ");
             int id = Integer.parseInt(scanner.nextLine().trim());
@@ -173,6 +177,7 @@ public class MainController {
 
     private void returnCar() {
         List<Rental> activeRentals = rentalService.getActiveRentals();
+
         if (activeRentals.isEmpty()) {
             System.out.println("No cars currently rented out.");
             return;
@@ -199,6 +204,8 @@ public class MainController {
     }
 
     private void removeCar() {
+        listAvailableCars();
+
         try {
             System.out.print("Enter car id to remove from fleet: ");
             int id = Integer.parseInt(scanner.nextLine().trim());
@@ -209,8 +216,8 @@ public class MainController {
                 return;
             }
 
-            car.setInOperation(false);
-            carService.updateCar(car);
+            carService.removeCar(id);
+
             System.out.println("Car removed from fleet (marked not in operation).");
         } catch (NumberFormatException e) {
             System.out.println("Invalid input.");

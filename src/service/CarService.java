@@ -26,23 +26,12 @@ public class CarService {
         Car car = cars.get(carId);
         if (car != null) {
             car.setInOperation(false);
-            car.returnCar();
             updateCar(car);
         }
     }
 
     public Car findById(int id) {
         return cars.get(id);
-    }
-
-    public List<Car> searchByAvailability(boolean available) {
-        List<Car> result = new ArrayList<>();
-        for (Car c : cars.values()) {
-            if (c.isAvailable() == available) {
-                result.add(c);
-            }
-        }
-        return result;
     }
 
     public List<Car> getAllAvailableCars() {
