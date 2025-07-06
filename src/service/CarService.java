@@ -9,6 +9,7 @@ public class CarService {
     private final String CAR_FILE = "data/cars.csv";
 
     public CarService() {
+        CSVService.ensureFileExists(CAR_FILE);
         loadCarsFromCSV();
     }
 

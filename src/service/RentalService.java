@@ -12,6 +12,7 @@ public class RentalService {
 
     public RentalService(CarService carService) {
         this.carService = carService;
+        CSVService.ensureFileExists(RENTAL_FILE);
         loadRentalsFromCSV();
     }
 
