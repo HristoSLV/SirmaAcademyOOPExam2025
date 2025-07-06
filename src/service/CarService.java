@@ -91,12 +91,13 @@ public class CarService {
             boolean inOperation = Boolean.parseBoolean(parts[7]);
 
             Car car = switch (type) {
-                case "Saloon" -> new Saloon(id, brand, model, year, pricePerDay);
-                case "SUV" -> new SUV(id, brand, model, year, pricePerDay);
-                case "Coupe" -> new Coupe(id, brand, model, year, pricePerDay);
+                case "Saloon" -> new Saloon(brand, model, year, pricePerDay);
+                case "SUV" -> new SUV(brand, model, year, pricePerDay);
+                case "Coupe" -> new Coupe(brand, model, year, pricePerDay);
                 default -> throw new IllegalArgumentException("Invalid car type: " + type);
             };
 
+            car.setId(id);
             car.setInOperation(inOperation);
 
             if (!inOperation) {

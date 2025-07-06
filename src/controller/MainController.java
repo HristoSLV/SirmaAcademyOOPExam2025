@@ -71,16 +71,13 @@ public class MainController {
             System.out.print("Enter car type (Saloon, SUV, Coupe): ");
             String type = scanner.nextLine().trim();
 
-            System.out.print("Enter id (int): ");
-            int id = Integer.parseInt(scanner.nextLine().trim());
-
             System.out.print("Enter brand: ");
             String brand = scanner.nextLine().trim();
 
             System.out.print("Enter model: ");
             String model = scanner.nextLine().trim();
 
-            System.out.print("Enter year (int): ");
+            System.out.print("Enter production year: ");
             int year = Integer.parseInt(scanner.nextLine().trim());
 
             System.out.print("Enter price per day (int): ");
@@ -89,13 +86,13 @@ public class MainController {
             Car car;
             switch (type) {
                 case "Saloon":
-                    car = new Saloon(id, brand, model, year, pricePerDay);
+                    car = new Saloon(brand, model, year, pricePerDay);
                     break;
                 case "SUV":
-                    car = new SUV(id, brand, model, year, pricePerDay);
+                    car = new SUV(brand, model, year, pricePerDay);
                     break;
                 case "Coupe":
-                    car = new Coupe(id, brand, model, year, pricePerDay);
+                    car = new Coupe(brand, model, year, pricePerDay);
                     break;
                 default:
                     System.out.println("Unknown car type. Car not added.");

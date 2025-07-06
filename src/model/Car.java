@@ -1,6 +1,9 @@
 package model;
 
 public abstract class Car implements Rentable {
+    private static int nextIdCounter = 1;
+
+
     protected int id;
     protected String brand;
     protected String model;
@@ -9,8 +12,9 @@ public abstract class Car implements Rentable {
     protected boolean available;
     protected boolean inOperation;
 
-    public Car(int id, String brand, String model, int year, int pricePerDay) {
-        this.id = id;
+    public Car(String brand, String model, int year, int pricePerDay) {
+        this.id = nextIdCounter;
+        nextIdCounter++;
         this.brand = brand;
         this.model = model;
         this.year = year;
