@@ -14,5 +14,3 @@ You would need the following tools installed before running the project locally:
 ### Usage
 
 To run the project, you would need to clone the repository and open it in IntelliJ IDEA.
-The repository includes created csv files for the specified file paths in the code.
-The project currently does not automatically generate the CSV files, thus it won't work without them.

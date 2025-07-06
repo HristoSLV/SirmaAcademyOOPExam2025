@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class CSVService {
+
     public static List<String> readLines(String filename) {
         List<String> lines = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -26,4 +27,20 @@ public class CSVService {
             e.printStackTrace();
         }
     }
+
+    public static void ensureFileExists(String filepath) {
+        try {
+            File file = new File(filepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                boolean created = file.createNewFile();
+                if (created) {
+                    System.out.println("Created new file: " + filepath);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error creating file " + filepath + ": " + e.getMessage());
+        }
+    }
+
 }
