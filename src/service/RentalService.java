@@ -45,7 +45,10 @@ public class RentalService {
         List<String> lines = CSVService.readLines(RENTAL_FILE);
         for (String line : lines) {
             String[] parts = line.split(",");
-            if (parts.length < 3) continue;
+            if (parts.length < 3) {
+                System.out.println("Invalid line: " + line);
+                continue;
+            }
 
             int carId = Integer.parseInt(parts[0]);
             String customerName = parts[1];

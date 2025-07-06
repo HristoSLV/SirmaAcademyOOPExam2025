@@ -49,7 +49,10 @@ public class CarService {
         List<String> lines = CSVService.readLines(CAR_FILE);
         for (String line : lines) {
             String[] parts = line.split(",");
-            if (parts.length < 8) continue;
+            if (parts.length < 8) {
+                System.out.println("Invalid line: " + line);
+                continue;
+            }
             String type = parts[0];
             int id = Integer.parseInt(parts[1]);
             String brand = parts[2];
