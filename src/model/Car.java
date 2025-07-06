@@ -73,6 +73,9 @@ public abstract class Car implements Rentable {
 
     public void setInOperation(boolean inOperation) {
         this.inOperation = inOperation;
+        if (!inOperation) {
+            available = false;
+        }
     }
 
     @Override

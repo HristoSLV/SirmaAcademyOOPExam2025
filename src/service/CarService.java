@@ -35,26 +35,6 @@ public class CarService {
         return cars.get(id);
     }
 
-    public List<Car> searchByBrand(String brand) {
-        List<Car> result = new ArrayList<>();
-        for (Car c : cars.values()) {
-            if (c.getBrand().equalsIgnoreCase(brand)) {
-                result.add(c);
-            }
-        }
-        return result;
-    }
-
-    public List<Car> searchByModel(String model) {
-        List<Car> result = new ArrayList<>();
-        for (Car c : cars.values()) {
-            if (c.getModel().equalsIgnoreCase(model)) {
-                result.add(c);
-            }
-        }
-        return result;
-    }
-
     public List<Car> searchByAvailability(boolean available) {
         List<Car> result = new ArrayList<>();
         for (Car c : cars.values()) {
@@ -76,7 +56,7 @@ public class CarService {
     }
 
     private void loadCarsFromCSV() {
-        cars.clear();
+
         List<String> lines = CSVService.readLines(CAR_FILE);
         for (String line : lines) {
             String[] parts = line.split(",");
@@ -99,15 +79,8 @@ public class CarService {
 
             car.setId(id);
             car.setInOperation(inOperation);
+            car.setAvailable(available);
 
-            if (!inOperation) {
-                car.returnCar();
-                car.setInOperation(false);
-            } else {
-                if (!available) {
-                    car.rentOut();
-                }
-            }
             cars.put(id, car);
         }
     }
