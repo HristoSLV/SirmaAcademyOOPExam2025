@@ -71,16 +71,13 @@ public class MainController {
             System.out.print("Enter car type (Saloon, SUV, Coupe): ");
             String type = scanner.nextLine().trim();
 
-            System.out.print("Enter id (int): ");
-            int id = Integer.parseInt(scanner.nextLine().trim());
-
             System.out.print("Enter brand: ");
             String brand = scanner.nextLine().trim();
 
             System.out.print("Enter model: ");
             String model = scanner.nextLine().trim();
 
-            System.out.print("Enter year (int): ");
+            System.out.print("Enter production year: ");
             int year = Integer.parseInt(scanner.nextLine().trim());
 
             System.out.print("Enter price per day (int): ");
@@ -89,13 +86,13 @@ public class MainController {
             Car car;
             switch (type) {
                 case "Saloon":
-                    car = new Saloon(id, brand, model, year, pricePerDay);
+                    car = new Saloon(brand, model, year, pricePerDay);
                     break;
                 case "SUV":
-                    car = new SUV(id, brand, model, year, pricePerDay);
+                    car = new SUV(brand, model, year, pricePerDay);
                     break;
                 case "Coupe":
-                    car = new Coupe(id, brand, model, year, pricePerDay);
+                    car = new Coupe(brand, model, year, pricePerDay);
                     break;
                 default:
                     System.out.println("Unknown car type. Car not added.");
@@ -112,6 +109,8 @@ public class MainController {
     }
 
     private void editCar() {
+        listAvailableCars();
+
         try {
             System.out.print("Enter car id to edit: ");
             int id = Integer.parseInt(scanner.nextLine().trim());
@@ -146,6 +145,8 @@ public class MainController {
     }
 
     private void rentCar() {
+        listAvailableCars();
+
         try {
             System.out.print("Enter car id to rent: ");
             int id = Integer.parseInt(scanner.nextLine().trim());
@@ -176,6 +177,7 @@ public class MainController {
 
     private void returnCar() {
         List<Rental> activeRentals = rentalService.getActiveRentals();
+
         if (activeRentals.isEmpty()) {
             System.out.println("No cars currently rented out.");
             return;
@@ -202,6 +204,8 @@ public class MainController {
     }
 
     private void removeCar() {
+        listAvailableCars();
+
         try {
             System.out.print("Enter car id to remove from fleet: ");
             int id = Integer.parseInt(scanner.nextLine().trim());
@@ -212,8 +216,8 @@ public class MainController {
                 return;
             }
 
-            car.setInOperation(false);
-            carService.updateCar(car);
+            carService.removeCar(id);
+
             System.out.println("Car removed from fleet (marked not in operation).");
         } catch (NumberFormatException e) {
             System.out.println("Invalid input.");
