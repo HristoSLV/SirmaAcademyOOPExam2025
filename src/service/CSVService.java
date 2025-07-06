@@ -12,7 +12,7 @@ public class CSVService {
                 if (!line.trim().isEmpty()) lines.add(line);
             }
         } catch (IOException e) {
-            // File may not exist initially
+            throw new RuntimeException(e);
         }
         return lines;
     }
