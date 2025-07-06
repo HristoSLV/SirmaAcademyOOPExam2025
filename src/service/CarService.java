@@ -6,7 +6,7 @@ import java.util.*;
 
 public class CarService {
     private final Map<Integer, Car> cars = new HashMap<>();
-    private final String CAR_FILE = "cars.csv";
+    private final String CAR_FILE = "data/cars.csv";
 
     public CarService() {
         loadCarsFromCSV();

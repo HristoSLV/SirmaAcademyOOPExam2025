@@ -8,7 +8,7 @@ import java.util.*;
 public class RentalService {
     private final List<Rental> rentals = new ArrayList<>();
     private final CarService carService;
-    private final String RENTAL_FILE = "rentals.csv";
+    private final String RENTAL_FILE = "data/rentals.csv";
 
     public RentalService(CarService carService) {
         this.carService = carService;
