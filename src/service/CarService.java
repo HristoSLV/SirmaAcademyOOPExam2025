@@ -119,7 +119,4 @@ public class CarService {
         CSVService.writeLines(CAR_FILE, lines);
     }
 
-    public List<Car> getAllCars() {
-        return new ArrayList<>(cars.values());
-    }
 }
