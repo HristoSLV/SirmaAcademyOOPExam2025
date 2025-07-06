@@ -166,7 +166,11 @@ public class MainController {
             String name = scanner.nextLine().trim();
             Customer customer = new Customer(name);
 
-            rentalService.rentCarToCustomer(car, customer, LocalDate.now());
+            System.out.println("Enter start date (YYYY-MM-DD): ");
+            String startDateString = scanner.nextLine().trim();
+            LocalDate startDate = LocalDate.parse(startDateString);
+
+            rentalService.rentCarToCustomer(car, customer, startDate);
             System.out.println("Car rented successfully to " + name + ".");
         } catch (NumberFormatException e) {
             System.out.println("Invalid input.");
@@ -192,7 +196,11 @@ public class MainController {
             System.out.print("Enter car id to return: ");
             int id = Integer.parseInt(scanner.nextLine().trim());
 
-            rentalService.returnCar(id, LocalDate.now());
+            System.out.println("Enter end date (YYYY-MM-DD): ");
+            String endDateString = scanner.nextLine().trim();
+            LocalDate endDate = LocalDate.parse(endDateString);
+
+            rentalService.returnCar(id, endDate);
             System.out.println("Car returned successfully.");
         } catch (NumberFormatException e) {
             System.out.println("Invalid input.");
