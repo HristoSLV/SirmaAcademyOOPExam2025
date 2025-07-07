@@ -14,3 +14,7 @@ You would need the following tools installed before running the project locally:
 ### Usage
 
 To run the project, you would need to clone the repository and open it in IntelliJ IDEA.
+
+### Secondary Branch
+
+Added a secondary branch for changes after exam period.
