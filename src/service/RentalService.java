@@ -62,10 +62,6 @@ public class RentalService {
                 Rental rental = new Rental(car, customer, rentDate);
                 rental.setReturnDate(returnDate);
 
-                if (returnDate == null) {
-                    car.rentOut();
-                }
-
                 rentals.add(rental);
             }
         }
@@ -88,4 +84,14 @@ public class RentalService {
         }
         return active;
     }
+
+    public Rental getActiveRentalByCarId(int carId) {
+        for (Rental rental : rentals) {
+            if (rental.getCar().getId() == carId && rental.getReturnDate() == null) {
+                return rental;
+            }
+        }
+        return null;
+    }
+
 }

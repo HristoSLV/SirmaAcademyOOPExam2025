@@ -4,6 +4,7 @@ import model.*;
 import service.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -73,36 +74,47 @@ public class MainController {
 
             System.out.print("Enter brand: ");
             String brand = scanner.nextLine().trim();
+            if (brand.isEmpty()) {
+                System.out.println("Invalid brand. Brand cannot be empty.");
+                return;
+            }
 
             System.out.print("Enter model: ");
             String model = scanner.nextLine().trim();
+            if (model.isEmpty()) {
+                System.out.println("Invalid model. Model cannot be empty.");
+                return;
+            }
 
             System.out.print("Enter production year: ");
             int year = Integer.parseInt(scanner.nextLine().trim());
+            if (year < 1886) {
+                System.out.println("Invalid year. Year must be at least 1886.");
+                return;
+            }
 
             System.out.print("Enter price per day (int): ");
             int pricePerDay = Integer.parseInt(scanner.nextLine().trim());
+            if (pricePerDay < 50) {
+                System.out.println("Invalid price per day. Price per day must be at least 50.");
+                return;
+            }
 
             Car car;
             switch (type) {
-                case "Saloon":
-                    car = new Saloon(brand, model, year, pricePerDay);
-                    break;
-                case "SUV":
-                    car = new SUV(brand, model, year, pricePerDay);
-                    break;
-                case "Coupe":
-                    car = new Coupe(brand, model, year, pricePerDay);
-                    break;
-                default:
-                    System.out.println("Unknown car type. Car not added.");
+                case "Saloon" -> car = new Saloon(brand, model, year, pricePerDay);
+                case "SUV" -> car = new SUV(brand, model, year, pricePerDay);
+                case "Coupe" -> car = new Coupe(brand, model, year, pricePerDay);
+                default -> {
+                    System.out.println("Invalid car information. Car not added.");
                     return;
+                }
             }
 
             carService.addCar(car);
             System.out.println("Car added successfully.");
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter numeric values for id, year, and price.");
+            System.out.println("Invalid input. Car not added.");
         } catch (IllegalArgumentException e) {
             System.out.println("Error adding car: " + e.getMessage());
         }
@@ -123,26 +135,46 @@ public class MainController {
 
             System.out.print("Enter new brand (" + car.getBrand() + "): ");
             String brand = scanner.nextLine().trim();
-            if (!brand.isEmpty()) car.setBrand(brand);
+            if (!brand.isEmpty()) {
+                car.setBrand(brand);
+            } else {
+                System.out.println("Invalid brand.");
+                return;
+            }
 
             System.out.print("Enter new model (" + car.getModel() + "): ");
             String model = scanner.nextLine().trim();
-            if (!model.isEmpty()) car.setModel(model);
+            if (!model.isEmpty()) {
+                car.setModel(model);
+            } else {
+                System.out.println("Invalid model.");
+                return;
+            }
 
             System.out.print("Enter new year (" + car.getYear() + "): ");
             String yearStr = scanner.nextLine().trim();
-            if (!yearStr.isEmpty()) car.setYear(Integer.parseInt(yearStr));
+            if (!yearStr.isEmpty() && Integer.parseInt(yearStr) > 1885) {
+                car.setYear(Integer.parseInt(yearStr));
+            } else {
+                System.out.println("Invalid year.");
+                return;
+            }
 
             System.out.print("Enter new price per day (" + car.getPricePerDay() + "): ");
             String priceStr = scanner.nextLine().trim();
-            if (!priceStr.isEmpty()) car.setPricePerDay(Integer.parseInt(priceStr));
+            if (!priceStr.isEmpty()) {
+                car.setPricePerDay(Integer.parseInt(priceStr));
+                carService.updateCar(car);
+                System.out.println("Car updated successfully.");
+            } else {
+                System.out.println("Invalid price per day. Car not updated.");
+            }
 
-            carService.updateCar(car);
-            System.out.println("Car updated successfully.");
         } catch (NumberFormatException e) {
-            System.out.println("Invalid numeric input.");
+            System.out.println("Invalid input.");
         }
     }
+
 
     private void rentCar() {
         listAvailableCars();
@@ -168,6 +200,12 @@ public class MainController {
 
             System.out.println("Enter start date (YYYY-MM-DD): ");
             String startDateString = scanner.nextLine().trim();
+            try {
+                LocalDate.parse(startDateString);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format.");
+                return;
+            }
             LocalDate startDate = LocalDate.parse(startDateString);
 
             rentalService.rentCarToCustomer(car, customer, startDate);
@@ -198,6 +236,17 @@ public class MainController {
 
             System.out.println("Enter end date (YYYY-MM-DD): ");
             String endDateString = scanner.nextLine().trim();
+            try {
+                LocalDate.parse(endDateString);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format.");
+                return;
+            }
+            if (LocalDate.parse(endDateString).isBefore(rentalService.getActiveRentalByCarId(id).getRentDate())) {
+                System.out.println("End date cannot before start date.");
+                return;
+            }
+
             LocalDate endDate = LocalDate.parse(endDateString);
 
             rentalService.returnCar(id, endDate);
