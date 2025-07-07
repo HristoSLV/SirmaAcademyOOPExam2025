@@ -17,4 +17,4 @@ To run the project, you would need to clone the repository and open it in Intell
 
 ### Secondary Branch
 
-Added a secondary branch for changes after exam period.
+Added a secondary branch for changes after exam period. Includes better validations and bug fixes on existing functionality.
